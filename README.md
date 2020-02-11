@@ -35,5 +35,5 @@ Run the command :
 
 python manage.py runserver
 
-Go to the url specified by the terminal(https://127.0.0.1:8000/) in general.
+Go to the url specified by the terminal(http://127.0.0.1:8000/) in general.
 Copy the url specified by terminal and paste it in your Browser...
