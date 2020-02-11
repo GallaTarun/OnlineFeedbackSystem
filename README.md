@@ -1,22 +1,22 @@
 # OnlineFeedbackSystem Mini Project (Django Web Framework)
 Install following  packages in command prompt :
 
-Django : 2.2.5
-sqlparse
-Pillow
-Faker
-bcrypt
-argon2-cffi
-certifi
-cffi
-pycparser
-python-dateutil
-pytz
-setuptools
-six
-text-unidecode
-wheel
-wincertstore
+-Django : 2.2.5
+-sqlparse
+-Pillow
+-Faker
+-bcrypt
+-argon2-cffi
+-certifi
+-cffi
+-pycparser
+-python-dateutil
+-pytz
+-setuptools
+-six
+-text-unidecode
+-wheel
+-wincertstore
 
 To install the packages....
 
