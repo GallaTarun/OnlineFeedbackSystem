@@ -1,0 +1,15 @@
+{% extends 'Feedback_System/base.html' %}
+{% block body_block %}
+
+    <div class="jumbotron">
+      <h1>Faculty List:</h1><br>
+      <h2>Click To view their Profile :</h2><br>
+        <table>
+          {% for faculty in facultys %}
+            <tr>
+                <td><h4><li><a href="{{faculty.id}}">{{ faculty.user.username }}</a></li></h4><br></td>
+            </tr>
+          {% endfor %}
+        </table>
+    </div>
+{% endblock %}
