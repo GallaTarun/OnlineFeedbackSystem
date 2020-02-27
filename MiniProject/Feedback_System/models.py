@@ -11,7 +11,7 @@ class Subject(models.Model):
     semester = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.name +"--"+ self.year +"--"+ self.semester
+        return self.name 
 
 
 class StudentProfile(models.Model):
@@ -20,7 +20,7 @@ class StudentProfile(models.Model):
     year = models.PositiveSmallIntegerField()
     subject = models.ManyToManyField(Subject, related_name="subject_students")
     section = models.CharField(max_length=1)
-    semester = models.CharField(max_length=1,default=1)
+    semester = models.IntegerField(default=1)
 
     def __str__(self):
          return self.user.username
