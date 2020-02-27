@@ -3,7 +3,7 @@
 <div class="jumbotron">
   <center><h2>Welcome to Student Portal !</h2></center>
   {% csrf_token %}
-  <center><table border="1" width="1000">
+  <center><table border="1" width="500">
     <tr>
       <td><b>Name</b></td>
       <td>{{ name }}</td>
@@ -31,11 +31,11 @@
   </table></center><br>
 
   <h2>Your Subjects List :</h2><br>
-  <center><ul>
+  <ul>
     {% for sub in subjects %}
         <h3><li><a href="#">{{sub}}</a></li></h3>
     {% endfor %}
-  </ul></center>
+  </ul>
 
 
 </div>
