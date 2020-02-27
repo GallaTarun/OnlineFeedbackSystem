@@ -2,12 +2,13 @@
 {% block body_block %}
     <div class="jumbotron">
       <h1>Please Login !</h1>
-      <form action="{% url 'project_app:user_login' %}" method="post">
+      <form action="{% url 'project_app:student_login' %}" method="post">
         {% csrf_token %}
-        <label for="email">Email ID:</label>
-        <input type="email" name="email" placeholder="example@gmail.com"><br>
-        <label for="password">Password:</label>
-        <input type="password" name="password">
+        <label for="username">Registraion Number :</label>
+        <input type="text" name="username"><br>
+        <label for="password" name='password'>Password :</label>
+        <input type="password" name="password"><br>
+        {{ forms.errors }}
         <input type="submit" value="Login">
       </form>
     </div>

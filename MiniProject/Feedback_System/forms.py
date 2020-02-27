@@ -25,7 +25,7 @@ class UserCreationForm(forms.ModelForm):
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
-        fields = ('branch','year','section')
+        fields = ('branch','year','section','semester')
 
 class FacultyProfileForm(forms.ModelForm):
     class Meta:

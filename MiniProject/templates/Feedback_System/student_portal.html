@@ -1,0 +1,37 @@
+{% extends 'Feedback_System/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <center><h2>Welcome to Student Portal !</h2></center>
+  {% csrf_token %}
+  <center><table border="1" width="1000">
+    <tr>
+      <td><b>Name</b></td>
+      <td>{{ name }}</td>
+    </tr>
+    <tr>
+      <td><b>Register number</b></td>
+      <td>{{ reg_num }}</td>
+    </tr>
+    <tr>
+      <td><b>Year</b></td>
+      <td>{{ year }}</td>
+    </tr>
+    <tr>
+      <td><b>Semester</b></td>
+      <td>{{semester}}</td>
+    </tr>
+    <tr>
+      <td><b>Branch</b></td>
+      <td>{{branch}}</td>
+    </tr>
+    <tr>
+      <td><b>Section</b></td>
+      <td>{{section}}</td>
+    </tr>
+  </table></center>
+
+  <h2>Your Subjects List :</h2>
+  
+
+</div>
+{% endblock %}
