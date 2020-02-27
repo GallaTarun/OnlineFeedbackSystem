@@ -30,8 +30,13 @@
     </tr>
   </table></center>
 
-  <h2>Your Subjects List :</h2>
-  
+  <h2>Your Subjects List :</h2><br>
+  <ul>
+    {% for sub in subjects %}
+        <h3><li><a href="#">sub</a></li></h3>
+    {% endfor %}
+  </ul>
+
 
 </div>
 {% endblock %}

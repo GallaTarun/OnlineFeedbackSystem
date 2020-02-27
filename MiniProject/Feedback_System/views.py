@@ -11,15 +11,16 @@ from . import models
 # Create your views here.
 
 def is_student(user):
-    student = UserProfile.objects.filter(user = user)
+    student = models.StudentProfile.objects.filter(user = user)
     if len(student) > 0:
         return True
     else:
         return False
+
 ############################################################################
 
 def is_teacher(user):
-    teacher = TeacherProfile.objects.filter(user = user)
+    teacher = models.FacultyProfile.objects.filter(user = user)
     if len(teacher) > 0:
         return True
     else:
@@ -69,6 +70,8 @@ def student_portal(request):
         branch = student.branch.upper()
         semester = student.semester
         section = student.section.upper()
+        subjects = models.Subject.objects.filter(branch=branch, year=year, semester=semester)
+        print(subjects)
         details = {
             'name' : name ,
             'reg_num' : user,
@@ -76,6 +79,7 @@ def student_portal(request):
             'branch' : branch ,
             'section' : section ,
             'semester' : semester,
+            'subjects' : subjects
         }
     else:
         return HttpResponse('Please Login to Continue !')
