@@ -12,7 +12,7 @@ urlpatterns =[
     url(r'^student_login/$',views.student_login,name ='student_login'),
     url(r'^faculty_login/$',views.faculty_login,name ='faculty_login'),
     url(r'^user_logout/$',views.user_logout,name='user_logout'),
-    url(r'^student_register/student_portal/$',views.student_portal,name='student_portal')
-    # url(r'^about_us/$',views.about_us,name='about_us')
-
+    url(r'^student_portal/$',views.student_portal,name='student_portal'),
+    url(r'^about_us/$',views.about_us,name='about_us'),
+    url(r'^feedback/$',views.feedback,name='feedback'),
 ]

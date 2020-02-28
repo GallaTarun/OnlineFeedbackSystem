@@ -64,14 +64,15 @@ def student_portal(request):
     if request.user.is_authenticated:
         user = request.user
         student = models.StudentProfile.objects.filter(user=user)[0]
-        print(student)
         name = user.first_name.capitalize() + user.last_name.capitalize()
         year = student.year
         branch = student.branch.upper()
         semester = student.semester
         section = student.section.upper()
         subjects = models.Subject.objects.filter(branch=branch, year=year, semester=semester)
-        print(subjects)
+        user.subjects = subjects
+        user.save()
+        print(user.subjects)
         details = {
             'name' : name ,
             'reg_num' : user,
@@ -86,7 +87,7 @@ def student_portal(request):
     return render(request,'Feedback_System/student_portal.html',context = details)
 
 
-#############################################################################
+##############################################################################
 
 def about_us(request):
     return render(request,'Feedback_System/about_us.html',{})
@@ -102,7 +103,7 @@ def student_register(request):
             profile.user = user
             profile.save()
             login(request,user)
-            return HttpResponseRedirect('student_portal')
+            return redirect('/student_portal')
         else:
             return HttpResponse("Oops ! Some Error Occured !")
     else:
@@ -173,9 +174,31 @@ def faculty_login(request):
             return HttpResponse(' Please Try Again !')
     return render(request,'Feedback_System/faculty_login.html',{})
 
-# #############################################################################
-#
+##############################################################################
+
+@login_required
+def feedback(request):
+    if request.user.is_authenticated:
+        user = request.user
+        student = models.StudentProfile.objects.filter(user=user)
+
+        subject = models.Subject.objects.filter(year=student.year, semester=student.semester)
+        details = {
+            'faculty':faculty,
+            'subject':subject,
+            'year': student.year,
+            'section': student.section,
+        }
+    return render(request,'Feedback_System/feedback_form.html',context = details)
+
+##############################################################################
+
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+##############################################################################
+
+def about_us(request):
+    return render(request,'Feedback_System/about_us.html',{})

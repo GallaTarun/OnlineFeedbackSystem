@@ -1,39 +1,15 @@
-<html>
-    <head>
-        <title>Feedback Form</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="feedback_form.css">
-    </head>
-    <body >
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <h4>Feedback System</h4>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link active" href="#">Home<span class="sr-only">(current)</span></a>
-      </li>
-        <li class="nav-item active">
-            <a href="#" class="nav-link">Profile</a>
-        </li>
-        </ul>
-    </div>
-            </nav>
-              <div class="container">
-            <br>
+{% extends 'Feedback_System/base.html' %}
+{% block body_block %}
+
             <div class="jumbotron">
-                <h1>Feedback Form</h1>
-                <form id="feedback" method="post">
+                <center><h1>Feedback Form</h1></center>
+                <center><form id="feedback" method="post" action="{% url 'project_app:student_portal' %}">
+                  {% csrf_token %}
                     <table border="3" width="800" height="600">
                         <tr>
                             <th>S.NO</th>
-                            <th ></th>
-                            <th > <b>Rating</b></th>
+                            <th></th>
+                            <th><b>Rating</b></th>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -99,18 +75,29 @@
                             <td>7</td>
                             <td>Covering Syllabus in time</td>
                             <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q6">  4<input type="radio" class="rating-input"
-        id="rating4" name="q6">  3<input type="radio" class="rating-input"
-        id="rating3" name="q6">  2<input type="radio" class="rating-input"
-        id="rating2" name="q6">  1<input type="radio" class="rating-input"
-        id="rating1" name="q6"></td>
+        id="rating5" name="q7">  4<input type="radio" class="rating-input"
+        id="rating4" name="q7">  3<input type="radio" class="rating-input"
+        id="rating3" name="q7">  2<input type="radio" class="rating-input"
+        id="rating2" name="q7">  1<input type="radio" class="rating-input"
+        id="rating1" name="q7"></td>
                         </tr>
-                    </table><br><br>
-                    <input type="submit" id="submit" class="btn btn-outline-success">
-                    <button class="btn btn-outline-success" href="home_page.html">Back</button>
-
+                        <tr>
+                            <td>8</td>
+                            <td>Sharing additional resources</td>
+                            <td>  5<input type="radio" class="rating-input"
+        id="rating5" name="q8">  4<input type="radio" class="rating-input"
+        id="rating4" name="q8">  3<input type="radio" class="rating-input"
+        id="rating3" name="q8">  2<input type="radio" class="rating-input"
+        id="rating2" name="q8">  1<input type="radio" class="rating-input"
+        id="rating1" name="q8"></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Any Suggestion :</td>
+                            <td> <input type="textarea" name="suggestion" rows="5" cols="120"></td>
+                        </tr>
+                    </table></center><br><br>
+                    <center><input type="submit" id="submit" class="btn btn-outline-success">
+                    <button class="btn btn-outline-success" href="{% url 'project_app:home' %}">Back</button></center>
                 </form>
-            </div>
-        </div>
-    </body>
-</html>
+{% endblock %}

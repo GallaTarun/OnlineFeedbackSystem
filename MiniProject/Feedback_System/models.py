@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 
-
 class Subject(models.Model):
     name = models.CharField(max_length=250, blank=False)
     branch = models.CharField(max_length=5)
@@ -11,7 +10,7 @@ class Subject(models.Model):
     semester = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.name 
+        return self.name
 
 
 class StudentProfile(models.Model):
@@ -48,3 +47,10 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.student.user.username + "--" + self.subject.name
+
+class Teaches(models.Model):
+    faculty = models.ForeignKey(FacultyProfile,on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.faculty +"-"+self.subject
