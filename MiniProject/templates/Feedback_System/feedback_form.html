@@ -3,7 +3,7 @@
 
             <div class="jumbotron">
                 <center><h1>Feedback Form</h1></center>
-                <center><form id="feedback" method="post" action="{% url 'project_app:student_portal' %}">
+                <center><form id="feedback" method="POST">
                   {% csrf_token %}
                     <table border="3" width="800" height="600">
                         <tr>
@@ -94,10 +94,11 @@
                         <tr>
                             <td>9</td>
                             <td>Any Suggestion :</td>
-                            <td> <input type="textarea" name="suggestion" rows="5" cols="120"></td>
+                            <td><textarea name="suggestion" rows="5" cols="50"></textarea></td>
                         </tr>
                     </table></center><br><br>
                     <center><input type="submit" id="submit" class="btn btn-outline-success">
                     <button class="btn btn-outline-success" href="{% url 'project_app:home' %}">Back</button></center>
-                </form>
+                </form></center>
+                </div>
 {% endblock %}

@@ -1,9 +1,9 @@
 {% extends 'Feedback_System/base.html' %}
 {% block body_block %}
 <div class="jumbotron">
-  <center><h2>Welcome to Student Portal !</h2></center>
+  <center><h2>Welcome {{name}} ! Good Day !</h2></center>
   {% csrf_token %}
-  <div class="">
+  <div>
     <center><table border="1" width="500">
       <tr>
         <td><b>Name</b></td>
@@ -31,12 +31,21 @@
       </tr>
     </table></center><br>
   </div>
-<div class="">
+<div>
   <h2>Your Subjects List :</h2><br>
   <ul>
-    {% for sub in subjects %}
-        <h3><li><a href="{% url 'project_app:feedback' %}">{{sub}}</a></li></h3>
-    {% endfor %}
+    <table border="1" width="600">
+      <tr>
+        <th>Name of Subject</th>
+        <th>Feedback Link</th>
+      </tr>
+      {% for sub in subjects %}
+          <tr>
+            <td>{{sub}}</td>
+            <td><a href="{% url 'project_app:feedback' %}" value="{{sub}}">Click Here</a></td>
+          </tr>
+      {% endfor %}
+    </table>
   </ul>
 </div>
 

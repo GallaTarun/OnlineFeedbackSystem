@@ -41,6 +41,7 @@ class FacultyDetails(DetailView):
 
 
 #############################################################################
+
 def home(request):
     intro = {
             'one' : "Welcome to ONLINE FEEDBACK SYSTEM!",
@@ -60,11 +61,12 @@ def thankyou(request):
 
 #############################################################################
 
+@login_required
 def student_portal(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated :
         user = request.user
         student = models.StudentProfile.objects.filter(user=user)[0]
-        name = user.first_name.capitalize() + user.last_name.capitalize()
+        name = user.first_name.capitalize() +" "+ user.last_name.capitalize()
         year = student.year
         branch = student.branch.upper()
         semester = student.semester
@@ -73,6 +75,7 @@ def student_portal(request):
         user.subjects = subjects
         user.save()
         print(user.subjects)
+
         details = {
             'name' : name ,
             'reg_num' : user,
@@ -82,10 +85,25 @@ def student_portal(request):
             'semester' : semester,
             'subjects' : subjects
         }
-    else:
-        return HttpResponse('Please Login to Continue !')
+    # else:
+    #     return HttpResponse('Please Login to Continue !')
     return render(request,'Feedback_System/student_portal.html',context = details)
 
+##############################################################################
+
+@login_required
+def faculty_portal(request):
+
+    return render(request,'Feedback_System/faculty_portal.html')
+
+##############################################################################
+
+@login_required
+def hod_portal(request):
+    if request.user.is_authenticated:
+        user = request.user
+
+    return render(request,'Feedback_System/hod_portal.html',context = details)
 
 ##############################################################################
 
@@ -99,6 +117,8 @@ def student_register(request):
         profile_form = StudentProfileForm(data=request.POST)
         if form.is_valid() and profile_form.is_valid():
             user = form.save()
+            user.set_password(user.password)
+            user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
@@ -112,18 +132,21 @@ def student_register(request):
     return render(request, 'Feedback_System/student_register.html', {'form': form,
                                                   'profile_form': profile_form})
 #
-# # #############################################################################
+###############################################################################
+
 def faculty_register(request):
     if request.method == "POST":
         form = UserCreationForm(data=request.POST)
         profile_form = FacultyProfileForm(data=request.POST)
         if form.is_valid() and profile_form.is_valid():
             user = form.save()
+            user.set_password(user.password)
+            user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
             login(request,user)
-            return render(request, 'Feedback_System/faculty_portal.html',{})
+            return redirect('/faculty_portal')
     else:
         form = UserCreationForm()
         profile_form = FacultyProfileForm()
@@ -155,6 +178,7 @@ def student_login(request):
     return render(request,'Feedback_System/login.html',{})
 
 # #############################################################################
+
 def faculty_login(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -176,20 +200,14 @@ def faculty_login(request):
 
 ##############################################################################
 
-@login_required
-def feedback(request):
-    if request.user.is_authenticated:
-        user = request.user
-        student = models.StudentProfile.objects.filter(user=user)
 
-        subject = models.Subject.objects.filter(year=student.year, semester=student.semester)
-        details = {
-            'faculty':faculty,
-            'subject':subject,
-            'year': student.year,
-            'section': student.section,
-        }
-    return render(request,'Feedback_System/feedback_form.html',context = details)
+def feedback(request):
+    if request.method == 'POST':
+            user = request.user
+            student = models.StudentProfile.objects.filter(user=user)
+            print(student)
+            subject = request.get()
+    return render(request,'Feedback_System/feedback_form.html')
 
 ##############################################################################
 
