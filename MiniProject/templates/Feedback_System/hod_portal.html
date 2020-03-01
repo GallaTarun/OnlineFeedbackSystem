@@ -1,0 +1,45 @@
+{% extends 'Feedback_System/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <h1>Good Day !</h1>
+  <table>
+    <tr>
+      <th>Name </th>
+      <td>{{name}}</td>
+    </tr>
+    <tr>
+      <th>Department</th>
+      <td>{{dept}}</td>
+    </tr>
+  </table>
+    <table border="1" width="500">
+      <tr>
+        <th>Year</th>
+        <th>Subject</th>
+        <th>Section</th>
+        <th>Faculty</th>
+      </tr>
+      {% for sub in subjects %}
+        {% for s  in sub %}
+       <tr>
+        <td rowspan="3">{{s.year}}</td>
+        <td rowspan="3">{{s.name}}</td>
+        <td>A</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>B</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>C</td>
+        <td>3</td>
+      </tr>
+      {%  endfor %}
+      {% endfor %}
+    </table>
+
+
+
+</div>
+{% endblock %}

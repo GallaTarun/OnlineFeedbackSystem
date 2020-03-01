@@ -42,7 +42,7 @@
       {% for sub in subjects %}
           <tr>
             <td>{{sub}}</td>
-            <td><a href="{% url 'project_app:feedback' %}" value="{{sub}}">Click Here</a></td>
+            <td><a href="feedback/{{sub.id}}" value="{{sub}}">Click Here</a></td>
           </tr>
       {% endfor %}
     </table>

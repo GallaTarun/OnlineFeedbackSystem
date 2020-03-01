@@ -14,6 +14,9 @@ urlpatterns =[
     url(r'^user_logout/$',views.user_logout,name='user_logout'),
     url(r'^student_portal/$',views.student_portal,name='student_portal'),
     url(r'^faculty_portal/$',views.faculty_portal,name='faculty_portal'),
+    url(r'^hod_portal/$',views.hod_portal,name="hod_portal"),
+    url(r'^assign_faculty/$',views.FacultyAssign.as_view(),name='assign_faculty'),
     url(r'^about_us/$',views.about_us,name='about_us'),
-    url(r'^feedback/$',views.feedback,name='feedback'),
+    url(r'^student_portal/feedback/(?P<pk>[-\w]+)/$',views.feedback,name='feedback_form'),
+    url(r'^feedback_result/(?P<pk>[-\w]+)/$',views.feedback_result,name='feedback_result'),
 ]

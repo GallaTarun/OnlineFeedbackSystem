@@ -1,8 +1,33 @@
 {% extends 'Feedback_System/base.html' %}
 {% block body_block %}
-
             <div class="jumbotron">
                 <center><h1>Feedback Form</h1></center>
+                <center><table border=1 width=500>
+                  <tr>
+                    <th>Name</th>
+                    <td>{{student.user.first_name}} {{student.user.last_name}}</td>
+                  </tr>
+                  <tr>
+                    <th>Year</th>
+                    <td>{{student.year}}</td>
+                  </tr>
+                  <tr>
+                    <th>Semester</th>
+                    <td>{{student.semester}}</td>
+                  </tr>
+                  <tr>
+                    <th>Section</th>
+                    <td>{{student.section}}</td>
+                  </tr>
+                  <tr>
+                    <th>Subject</th>
+                    <td>{{subject.name}}</td>
+                  </tr>
+                  <tr>
+                    <th>Faculty</th>
+                    <td>{{faculty.faculty.user.first_name}} {{faculty.faculty.user.last_name}}</td>
+                  </tr>
+                </table></center><br><br>
                 <center><form id="feedback" method="POST">
                   {% csrf_token %}
                     <table border="3" width="800" height="600">
@@ -97,8 +122,7 @@
                             <td><textarea name="suggestion" rows="5" cols="50"></textarea></td>
                         </tr>
                     </table></center><br><br>
-                    <center><input type="submit" id="submit" class="btn btn-outline-success">
-                    <button class="btn btn-outline-success" href="{% url 'project_app:home' %}">Back</button></center>
+                    <center><input type="submit" id="submit" class="btn btn-outline-success"></center>
                 </form></center>
                 </div>
 {% endblock %}

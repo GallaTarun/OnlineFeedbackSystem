@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django import forms
-from django.views.generic import View,TemplateView, ListView, DetailView
+from django.views.generic import View,TemplateView, ListView, DetailView, CreateView, UpdateView , DeleteView
 from .forms import UserCreationForm, StudentProfileForm, FacultyProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -10,21 +10,6 @@ from django.contrib.auth.decorators import login_required
 from . import models
 # Create your views here.
 
-def is_student(user):
-    student = models.StudentProfile.objects.filter(user = user)
-    if len(student) > 0:
-        return True
-    else:
-        return False
-
-############################################################################
-
-def is_teacher(user):
-    teacher = models.FacultyProfile.objects.filter(user = user)
-    if len(teacher) > 0:
-        return True
-    else:
-        return False
  ###########################################################################
 
 class FacultyProfileList(ListView):
@@ -39,6 +24,11 @@ class FacultyDetails(DetailView):
     model = models.FacultyProfile
     template_name = 'faculty_details.html'
 
+#############################################################################
+
+class FacultyAssign(CreateView):
+    model = models.Teaches
+    fields = ('faculty', 'subject', 'section')
 
 #############################################################################
 
@@ -62,7 +52,7 @@ def thankyou(request):
 #############################################################################
 
 @login_required
-def student_portal(request):
+def student_portal(request,pk):
     if request.user.is_authenticated :
         user = request.user
         student = models.StudentProfile.objects.filter(user=user)[0]
@@ -85,16 +75,27 @@ def student_portal(request):
             'semester' : semester,
             'subjects' : subjects
         }
-    # else:
-    #     return HttpResponse('Please Login to Continue !')
     return render(request,'Feedback_System/student_portal.html',context = details)
 
 ##############################################################################
 
 @login_required
-def faculty_portal(request):
-
-    return render(request,'Feedback_System/faculty_portal.html')
+def faculty_portal(request,pk):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect('/hod_portal')
+        else:
+            user = request.user
+            faculty = models.FacultyProfile.objects.filter(user=user)[0]
+            subjects = models.Teaches.objects.filter(faculty=faculty)
+            user.subjects = subjects
+            user.save()
+            name = user.first_name.capitalize() + ' ' + user.last_name.capitalize()
+            details = {
+                'name' : name,
+                'subjects' : subjects,
+            }
+    return render(request,'Feedback_System/faculty_portal.html',context=details)
 
 ##############################################################################
 
@@ -102,7 +103,17 @@ def faculty_portal(request):
 def hod_portal(request):
     if request.user.is_authenticated:
         user = request.user
-
+        faculty = models.FacultyProfile.objects.filter(user=user)
+        subjects = models.Subject.objects.all()
+        subj_list = [[s for s in subjects if s.year==i and s.semester==j] for i in range(1,5) for j in [1,2]]
+        print(subj_list)
+        name = user.first_name.capitalize() + ' ' + user.last_name.capitalize()
+        details = {
+            'name' : name,
+            'years': range(1,5),
+            'sections': ['A', 'B', 'c'],
+            'subjects': subj_list,
+        }
     return render(request,'Feedback_System/hod_portal.html',context = details)
 
 ##############################################################################
@@ -200,14 +211,24 @@ def faculty_login(request):
 
 ##############################################################################
 
+@login_required
+def feedback(request,pk):
+    user = request.user
+    student = models.StudentProfile.objects.filter(user=user)[0]
+    subject = models.Subject.objects.filter(id=pk)[0]
+    faculty = models.Teaches.objects.filter(subject=subject, year=student.year,semester= student.semester)[0]
+    print(student,subject,faculty)
+    details = {
+        'student' : student,
+        'subject' : subject,
+        'faculty' : faculty,
+    }
+    return render(request,'Feedback_System/feedback_form.html', context=details)
 
-def feedback(request):
-    if request.method == 'POST':
-            user = request.user
-            student = models.StudentProfile.objects.filter(user=user)
-            print(student)
-            subject = request.get()
-    return render(request,'Feedback_System/feedback_form.html')
+##############################################################################
+
+def feedback_result(request):
+    pass
 
 ##############################################################################
 
