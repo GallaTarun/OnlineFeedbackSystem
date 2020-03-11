@@ -1,0 +1,36 @@
+{% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/portals.css' %}">
+{% endblock %}
+{% block body_block %}
+<div id="content">
+  <div class="jumbotron">
+    <center>
+  <h1>Rating Result Page</h1><br>
+  </center>
+    <table border="1" width="400" height="150" style="{padding-left:400px}">
+      <tr>
+        <th>Subject</th>
+        <td>{{feedback.subject}}</td>
+      </tr>
+      <tr>
+        <th>Year</th>
+        <td>{{feedback.year}}</td>
+      </tr>
+      <tr>
+        <th>Semester</th>
+        <td>{{feedback.semester}}</td>
+      </tr>
+      <tr>
+        <th>Section</th>
+        <td>{{feedback.section}}</td>
+      </tr>
+      <tr>
+        <th>Faculty Name</th>
+        <td>{{feedback.faculty.user.first_name}} {{feedback.faculty.user.last_name}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% endblock %}

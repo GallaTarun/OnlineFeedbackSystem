@@ -1,23 +1,29 @@
 {% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/portals.css' %}">
+{% endblock %}
 {% block body_block %}
-<div class="jumbotron">
-  <h1>Hello {{name}}</h1>
-  <h3>See how your Students rated you !</h3><br>
-  <table border="1" width="500">
-    <tr>
-      <th><h2>Subject</h2></th>
-      <th><h2>Year</h2></th>
-      <th><h2>Section</h2></th>
-      <th><h2>Semester</h2></th>
-    </tr>
-    {% for sub in subjects %}
+<div id="content">
+  <div class="jumbotron">
+    <h1>Hello {{name}}</h1>
+    <h3>View Feedback Results :</h3><br>
+    <table border="1" width="500">
       <tr>
-        <td><a href="feedback/{{sub.id}}">{{sub.subject.name}}</a></td>
-        <td>{{sub.year}}</td>
-        <td>{{sub.section}}</td>
-        <td>{{sub.semester}}</td>
+        <th><h2>Subject</h2></th>
+        <th><h2>Year</h2></th>
+        <th><h2>Section</h2></th>
+        <th><h2>Semester</h2></th>
       </tr>
-    {% endfor %}
-  </table>
+      {% for sub in subjects %}
+        <tr>
+          <td><a href="feedback/{{sub.id}}">{{sub.subject.name}}</a></td>
+          <td>{{sub.year}}</td>
+          <td>{{sub.section}}</td>
+          <td>{{sub.semester}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 </div>
 {% endblock %}

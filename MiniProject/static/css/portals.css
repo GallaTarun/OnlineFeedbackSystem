@@ -1,0 +1,28 @@
+.jumbotron{
+  padding: 60px;
+  width: 800px;
+  height: auto;
+  align-content: center;
+  border: 1px dotted black;
+}
+
+#content{
+    padding-left: 250px;
+}
+
+body{
+  background-color: #ccede1;
+}
+
+label{
+  font-weight: bold;
+}
+
+th , td{
+  text-align: center;
+}
+
+#details{
+  width: 400px;
+  height: auto;
+}

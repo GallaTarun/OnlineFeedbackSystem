@@ -1,13 +1,17 @@
   {% extends 'Feedback_System/base.html' %}
-  {% block body_block %}
-  <!-- {% load staticfiles %}
-    <link rel="stylesheet" href="{% static "css/home_page.css" %}"> -->
-    <div class="jumbotron" id="home_jumbo">
-      <h4> {{ one }} </h4> <br>
-        <h4>{{ two }}</h4> <br>
+  {% load staticfiles %}
+  {% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+  {% endblock %}
 
-        <hr class="my-4">
-        <h4>{{ three }}</h4> <br>
-        <a class="btn btn-primary btn-lg" href="{% url 'project_app:facultyprofile_list' %}" role="button">FACULTY </a>
-  </div>
+  {% block body_block %}
+    <div id="content">
+      <div class="jumbotron" id="home_jumbo">
+        <h4> {{ one }} </h4> <br>
+          <h4>{{ two }}</h4> <br>
+          <hr class="my-4">
+          <h4>{{ three }}</h4> <br>
+          <a class="btn btn-primary btn-lg" href="{% url 'project_app:facultyprofile_list' %}" role="button">FACULTY </a>
+    </div>
+    </div>
  {% endblock %}

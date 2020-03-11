@@ -1,0 +1,13 @@
+body{
+  background-color: #ccede1;
+}
+#content{
+  padding-left: 400px;
+}
+#home_jumbo{
+  padding-left: 400px;
+  width: 600px;
+  border: 1px dotted black;
+  height: auto;
+  align-content: center;
+}

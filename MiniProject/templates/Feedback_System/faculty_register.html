@@ -1,12 +1,18 @@
 {% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 {% block body_block %}
-  <h1>Faculty SignUp</h1>
-        <div class="jumbotron" id="jumbo2">
-          <form method="post">
-          {{ form.as_p }}
-          {{ profile_form.as_p }}
-          {% csrf_token %}
-          <button type="submit" id="submit" class="btn btn-outline-success">Register</button>
-        </form>
-      </div>
+        <div id="content">
+          <div class="jumbotron" id="jumbo2">
+            <center><h1>Faculty SignUp</h1></center><br><br>
+            <form method="post">
+            {{ form.as_p }}
+            {{ profile_form.as_p }}
+            {% csrf_token %}<br><br><br>
+            <center><button type="submit" id="submit" class="btn btn-outline-success">Register</button></center>
+          </form>
+        </div>
+        </div>
   {% endblock %}

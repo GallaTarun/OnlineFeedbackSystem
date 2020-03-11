@@ -18,5 +18,5 @@ urlpatterns =[
     url(r'^assign_faculty/$',views.FacultyAssign.as_view(),name='assign_faculty'),
     url(r'^about_us/$',views.about_us,name='about_us'),
     url(r'^student_portal/feedback/(?P<pk>[-\w]+)/$',views.feedback,name='feedback_form'),
-    url(r'^feedback_result/(?P<pk>[-\w]+)/$',views.feedback_result,name='feedback_result'),
+    url(r'^hod_portal/feedback_result/(?P<pk>[-\w]+)/$',views.feedback_result,name='feedback_result'),
 ]

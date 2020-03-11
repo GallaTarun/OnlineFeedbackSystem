@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django import forms
 from django.views.generic import View,TemplateView, ListView, DetailView, CreateView, UpdateView , DeleteView
-from .forms import UserCreationForm, StudentProfileForm, FacultyProfileForm
+from .forms import UserCreationForm, StudentProfileForm, FacultyProfileForm, FeedbackForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
@@ -28,7 +28,16 @@ class FacultyDetails(DetailView):
 
 class FacultyAssign(CreateView):
     model = models.Teaches
-    fields = ('faculty', 'subject', 'section')
+    fields = ('faculty', 'subject', 'year' , 'section', 'semester')
+
+#############################################################################
+
+def is_hod(request,user):
+    hod = models.Hod.objects.all()
+    if user in hod:
+        return True
+    else:
+        return False
 
 #############################################################################
 
@@ -52,7 +61,7 @@ def thankyou(request):
 #############################################################################
 
 @login_required
-def student_portal(request,pk):
+def student_portal(request):
     if request.user.is_authenticated :
         user = request.user
         student = models.StudentProfile.objects.filter(user=user)[0]
@@ -80,7 +89,7 @@ def student_portal(request,pk):
 ##############################################################################
 
 @login_required
-def faculty_portal(request,pk):
+def faculty_portal(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return redirect('/hod_portal')
@@ -103,17 +112,19 @@ def faculty_portal(request,pk):
 def hod_portal(request):
     if request.user.is_authenticated:
         user = request.user
-        faculty = models.FacultyProfile.objects.filter(user=user)
-        subjects = models.Subject.objects.all()
-        subj_list = [[s for s in subjects if s.year==i and s.semester==j] for i in range(1,5) for j in [1,2]]
-        print(subj_list)
+        faculty = models.Teaches.objects.all()
+        # subj_list = [[s for s in subjects if s.year==i and s.semester==j ] for i in range(1,5) for j in [1,2]]
         name = user.first_name.capitalize() + ' ' + user.last_name.capitalize()
+
         details = {
             'name' : name,
             'years': range(1,5),
             'sections': ['A', 'B', 'c'],
-            'subjects': subj_list,
+            # 'subjects': subj_list,
+            'faculty': faculty,
         }
+    else:
+        return HttpResponse("You dont have permissions to access this page !")
     return render(request,'Feedback_System/hod_portal.html',context = details)
 
 ##############################################################################
@@ -172,13 +183,12 @@ def student_login(request):
         password = request.POST.get("password")
         user = User.objects.filter(username=username)
         print(username, password)
-        # if user.is_active:
         user = authenticate(username=username,password=password)
         print(user)
         if user:
             student = models.StudentProfile.objects.filter(user)
             if student.count()!=0:
-                login(request,user)
+                login(request,user, backend=settings.AUTHENTICATION_BACKENDS[0])
                 return HttpResponseRedirect('student_portal')
             else:
                 return HttpResponseRedirect('Invalid Login !')
@@ -217,7 +227,8 @@ def feedback(request,pk):
     student = models.StudentProfile.objects.filter(user=user)[0]
     subject = models.Subject.objects.filter(id=pk)[0]
     faculty = models.Teaches.objects.filter(subject=subject, year=student.year,semester= student.semester)[0]
-    print(student,subject,faculty)
+    if request.method == 'POST':
+        pass
     details = {
         'student' : student,
         'subject' : subject,
@@ -227,8 +238,14 @@ def feedback(request,pk):
 
 ##############################################################################
 
-def feedback_result(request):
-    pass
+@login_required
+def feedback_result(request,pk):
+    feedback = models.Teaches.objects.filter(id=pk)[0]
+    print(feedback)
+    details = {
+        'feedback' : feedback,
+    }
+    return render(request,'Feedback_System/feedback_result.html',context=details)
 
 ##############################################################################
 

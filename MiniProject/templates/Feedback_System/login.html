@@ -1,16 +1,22 @@
 {% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 {% block body_block %}
-    <div class="jumbotron">
-      <h1>Please Login !</h1>
-      <form action="{% url 'project_app:student_login' %}" method="post">
-        {% csrf_token %}
-        <label for="username">Registraion Number :</label>
-        <input type="text" name="username"><br>
-        <label for="password" name='password'>Password :</label>
-        <input type="password" name="password"><br>
-        {{ forms.errors }}
-        <input type="submit" value="Login">
-      </form>
+    <div id="loginform">
+      <div class="jumbotron">
+        <center><h1>Student Login !</h1></center><br>
+        <form action="{% url 'project_app:student_login' %}" method="post">
+          {% csrf_token %}
+          <label for="username">Registraion Number :</label>
+          <input type="text" name="username"><br>
+          <label for="password" name='password'>Password :</label>
+          <input type="password" name="password"><br>
+          {{ forms.errors }}<br>
+          <center><br><button type="submit" id="submit" class="btn btn-outline-success">Login</button></center>
+        </form>
+      </div>
     </div>
 
 {% endblock %}

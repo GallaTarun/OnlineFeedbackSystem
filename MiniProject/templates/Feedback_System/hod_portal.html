@@ -1,45 +1,42 @@
 {% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/portals.css' %}">
+{% endblock %}
 {% block body_block %}
-<div class="jumbotron">
-  <h1>Good Day !</h1>
-  <table>
-    <tr>
-      <th>Name </th>
-      <td>{{name}}</td>
-    </tr>
-    <tr>
-      <th>Department</th>
-      <td>{{dept}}</td>
-    </tr>
-  </table>
-    <table border="1" width="500">
+<div id="content">
+  <div class="jumbotron">
+    <table border="1" id="details">
       <tr>
-        <th>Year</th>
-        <th>Subject</th>
-        <th>Section</th>
-        <th>Faculty</th>
-      </tr>
-      {% for sub in subjects %}
-        {% for s  in sub %}
-       <tr>
-        <td rowspan="3">{{s.year}}</td>
-        <td rowspan="3">{{s.name}}</td>
-        <td>A</td>
-        <td>1</td>
+        <th>Name </th>
+        <td>{{name}}</td>
       </tr>
       <tr>
-        <td>B</td>
-        <td>2</td>
+        <th>Department</th>
+        <td>{{dept}}</td>
       </tr>
-      <tr>
-        <td>C</td>
-        <td>3</td>
-      </tr>
-      {%  endfor %}
-      {% endfor %}
     </table>
-
-
-
+    <br>
+    <h2>View Ratings of Faculties :</h2><br>
+      <table border="1" width="500">
+        <tr>
+          <th>Year</th>
+          <th>Subject</th>
+          <th>Section</th>
+          <th>Faculty</th>
+          <th>Result Link</th>
+        </tr>
+        {% for fac in faculty %}
+          <tr>
+            <td>{{fac.year}}</td>
+            <td>{{fac.subject}}</td>
+            <td>{{fac.section}}</td>
+            <td>{{fac.faculty}}</td>
+            <td><a href="{% url 'project_app:feedback_result' fac.id %}">Click Here</a></td>
+          </tr>
+        {% endfor %}
+      </table><br><br>
+      <h4>Click here to <a href="{% url 'project_app:assign_faculty' %}">Assign Faculty to Subjects</a></h4>
+  </div>
 </div>
 {% endblock %}

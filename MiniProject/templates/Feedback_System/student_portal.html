@@ -1,55 +1,55 @@
 {% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+  <link rel="stylesheet" href="{% static 'css/portals.css' %}">
+{% endblock %}
 {% block body_block %}
-<div class="jumbotron">
-  <center><h2>Welcome {{name}} ! Good Day !</h2></center>
-  {% csrf_token %}
-  <div>
-    <center><table border="1" width="500">
-      <tr>
-        <td><b>Name</b></td>
-        <td>{{ name }}</td>
-      </tr>
-      <tr>
-        <td><b>Register number</b></td>
-        <td>{{ reg_num }}</td>
-      </tr>
-      <tr>
-        <td><b>Year</b></td>
-        <td>{{ year }}</td>
-      </tr>
-      <tr>
-        <td><b>Semester</b></td>
-        <td>{{semester}}</td>
-      </tr>
-      <tr>
-        <td><b>Branch</b></td>
-        <td>{{branch}}</td>
-      </tr>
-      <tr>
-        <td><b>Section</b></td>
-        <td>{{section}}</td>
-      </tr>
-    </table></center><br>
-  </div>
-<div>
-  <h2>Your Subjects List :</h2><br>
-  <ul>
-    <table border="1" width="600">
-      <tr>
-        <th>Name of Subject</th>
-        <th>Feedback Link</th>
-      </tr>
-      {% for sub in subjects %}
+    <div class="jumbotron">
+      <center><h2>Welcome {{name}} !</h2></center>
+      {% csrf_token %}
+      <div>
+        <center><table border="1" width="500">
           <tr>
-            <td>{{sub}}</td>
-            <td><a href="feedback/{{sub.id}}" value="{{sub}}">Click Here</a></td>
+            <td><b>Name</b></td>
+            <td>{{ name }}</td>
           </tr>
-      {% endfor %}
-    </table>
-  </ul>
-</div>
+          <tr>
+          </tr>
+          <tr>
+            <td><b>Year</b></td>
+            <td>{{ year }}</td>
+          </tr>
+          <tr>
+            <td><b>Semester</b></td>
+            <td>{{semester}}</td>
+          </tr>
+          <tr>
+            <td><b>Branch</b></td>
+            <td>{{branch}}</td>
+          </tr>
+          <tr>
+            <td><b>Section</b></td>
+            <td>{{section}}</td>
+          </tr>
+        </table></center><br>
+      </div>
+    <div>
+      <h2>Your Subjects List :</h2><br>
+      <ul>
+        <table border="1" width="600">
+          <tr>
+            <th>Name of Subject</th>
+            <th>Feedback Link</th>
+          </tr>
+          {% for sub in subjects %}
+              <tr>
+                <td>{{sub}}</td>
+                <td><a href="feedback/{{sub.id}}" value="{{sub}}">Click Here</a></td>
+              </tr>
+          {% endfor %}
+        </table>
+      </ul>
+    </div>
 
-
-
-</div>
+  </div>
 {% endblock %}

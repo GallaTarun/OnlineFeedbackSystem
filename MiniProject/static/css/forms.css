@@ -1,32 +1,27 @@
-div{
-  padding: 20px;
-  background-color: #f2f2f2;
-  border-radius: 5px;
+body{
+  background-color: #ccede1;
 }
 
-
-
-
-/* input[type=email], input[type=password], input[type=text]{
-    width: 40%;
-    padding: 8px 0;
-    display:inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+label{
+  font-weight: bold;
 }
 
-input[type=submit]{
-    width: 10%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-} */
+input ,select{
+  float:right;
+  width: 100%;
+}
+.jumbotron{
+  padding-left: 30px;
+  width: 400px;
+  height: auto;
+  align-content: center;
+  border: 1px dotted black;
+}
 
-/* input[type=submit]:hover{
-    background-color: #45a049;
-} */
+#content{
+    padding-left: 400px;
+}
+
+submit{
+  align: right;
+}

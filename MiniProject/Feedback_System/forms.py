@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import StudentProfile, FacultyProfile
+from .models import StudentProfile, FacultyProfile , Feedback
 from django.core import validators
 
 class UserCreationForm(forms.ModelForm):
@@ -11,6 +11,11 @@ class UserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username','first_name','last_name','email','password')
+        help_texts = {
+            'username': None,
+            'email': None,
+        }
+
         def save(self,commit=True):
             user = super().save(commit=false)
             user.email = self.cleaned_data['email']
@@ -31,3 +36,17 @@ class FacultyProfileForm(forms.ModelForm):
     class Meta:
         model = FacultyProfile
         fields = ('age',)
+
+class FeedbackForm(forms.ModelForm):
+    ratings = ((5,'Very Good'),(4,'Good'),(3,'Average'),(2,'Below Average'),(1,'Poor'))
+    res1 = forms.CharField(label='Clear and Audible voice',widget=forms.RadioSelect(choices=ratings))
+    res2 = forms.CharField(label='Knowledge on Subject',widget=forms.RadioSelect(choices=ratings))
+    res3 = forms.CharField(label='Student Interaction & Doubts Clarification',widget=forms.RadioSelect(choices=ratings))
+    res4 = forms.CharField(label='Discipline and Control over class',widget=forms.RadioSelect(choices=ratings))
+    res5 = forms.CharField(label='Passion & Enthusiasm to teach',widget=forms.RadioSelect(choices=ratings))
+    res6 = forms.CharField(label='Punctual to class',widget=forms.RadioSelect(choices=ratings))
+    res7 = forms.CharField(label='Covering Syllabus in time',widget=forms.RadioSelect(choices=ratings))
+    res8 = forms.CharField(label='Sharing additional resources',widget=forms.RadioSelect(choices=ratings))
+    class Meta:
+        model = Feedback
+        fields = ('res1','res2','res3','res4','res5','res6','res7','res8','sug')
