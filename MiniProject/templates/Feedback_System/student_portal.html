@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="{% static 'css/portals.css' %}">
 {% endblock %}
 {% block body_block %}
+  <div id="content">
     <div class="jumbotron">
       <center><h2>Welcome {{name}} !</h2></center>
       {% csrf_token %}
@@ -50,6 +51,6 @@
         </table>
       </ul>
     </div>
-
   </div>
+</div>
 {% endblock %}

@@ -1,9 +1,16 @@
 {% extends 'Feedback_System/base.html' %}
+{% load staticfiles %}
+{% block head_block %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 {% block body_block %}
-  <div class="jumbotron">
-      <h2>Name : {{ faculty_details.user.username }}</h2><br>
-      <h2>Email : {{ faculty_details.user.email }}</h2><br>
-      <h2>Age : {{ faculty_details.age }}</h2><br>
-      <a href="{% url 'project_app:facultyprofile_list' %}">Back to Faculty List Page</a>
+  <div id="content">
+    <div class="jumbotron">
+        <h2>Name : {{ facultydetails.user.username }}</h2><br>
+        <h2>Email : {{ facultydetails.user.email }}</h2><br>
+        <h2>Age : {{ facultydetails.age }}</h2><br>
+        <h2>{{subjects}}</h2>
+        <a href="{% url 'project_app:facultyprofile_list' %}">Back to Faculty List Page</a>
+    </div>
   </div>
 {% endblock %}

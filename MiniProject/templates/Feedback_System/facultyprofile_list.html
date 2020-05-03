@@ -1,15 +1,21 @@
 {% extends 'Feedback_System/base.html' %}
-{% block body_block %}
+{% load staticfiles %}
+{% block head_block %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 
+{% block body_block %}
+  <div id="content">
     <div class="jumbotron">
       <h1>Faculty List:</h1><br>
       <h2>Click To view their Profile :</h2><br>
         <table>
           {% for faculty in facultys %}
             <tr>
-                <td><h4><li><a href="facultyprofile_list/{{faculty.id}}">{{ faculty.user.username }}</a></li></h4><br></td>
+                <td><h4><li><a href="{% url 'project_app:faculty_details' faculty.id %}">{{ faculty.user.username }}</a></li></h4></td>
             </tr>
           {% endfor %}
         </table>
     </div>
+  </div>
 {% endblock %}

@@ -56,6 +56,8 @@ class Feedback(models.Model):
     student = models.ForeignKey(StudentProfile,on_delete=models.CASCADE)
     teacher = models.ForeignKey(FacultyProfile, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    submitted = False
+
     res1 = models.CharField(max_length=10)
     res2 = models.CharField(max_length=10)
     res3 = models.CharField(max_length=10)
@@ -65,13 +67,13 @@ class Feedback(models.Model):
     res7 = models.CharField(max_length=10)
     res8 = models.CharField(max_length=10)
     sug = models.CharField(max_length=500, blank=True, null=True)
-
+    
     def __str__(self):
         return self.student.user.username + "--" + self.subject.name
 
 class Teaches(models.Model):
-    faculty = models.ForeignKey(FacultyProfile,on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    faculty = models.ForeignKey(FacultyProfile,on_delete = models.CASCADE)
+    subject = models.ForeignKey(Subject,on_delete = models.CASCADE)
     years = (('1','1'),('2','2'),('3','3'),('4','4'))
     sections = (('A','A'),('B','B'),('C','C'))
     semesters = ((1,1),(2,2))

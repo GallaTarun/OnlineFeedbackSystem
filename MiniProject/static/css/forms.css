@@ -1,5 +1,6 @@
 body{
   background-color: #ccede1;
+  padding-left: 300px;
 }
 
 label{
@@ -18,8 +19,17 @@ input ,select{
   border: 1px dotted black;
 }
 
+#jumbo{
+    height: 600px;
+    width: 600px;
+}
+
 #content{
     padding-left: 400px;
+}
+
+#content1{
+  padding-left: 250px;
 }
 
 submit{

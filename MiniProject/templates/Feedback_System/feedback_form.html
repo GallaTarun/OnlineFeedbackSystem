@@ -1,132 +1,52 @@
 {% extends 'Feedback_System/base.html' %}
 {% load staticfiles %}
 {% block head_block %}
-  <link rel="stylesheet" href="{% static 'css/feedback_form.css' %}">
+  <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
 {% endblock %}
 {% block body_block %}
-            <div class="jumbotron">
-                <center><h1>Feedback Form</h1></center>
-                <center><table border=1 width=500>
-                  <tr>
-                    <th>Name</th>
-                    <td>{{student.user.first_name}} {{student.user.last_name}}</td>
-                  </tr>
-                  <tr>
-                    <th>Year</th>
-                    <td>{{student.year}}</td>
-                  </tr>
-                  <tr>
-                    <th>Semester</th>
-                    <td>{{student.semester}}</td>
-                  </tr>
-                  <tr>
-                    <th>Section</th>
-                    <td>{{student.section}}</td>
-                  </tr>
-                  <tr>
-                    <th>Subject</th>
-                    <td>{{subject.name}}</td>
-                  </tr>
-                  <tr>
-                    <th>Faculty</th>
-                    <td>{{faculty.faculty.user.first_name}} {{faculty.faculty.user.last_name}}</td>
-                  </tr>
-                </table></center><br><br>
-                <center><form id="feedback" method="POST">
-                  {% csrf_token %}
-                    <table border="3" width="800" height="600">
-                        <tr>
-                            <th>S.NO</th>
-                            <th></th>
-                            <th><b>Rating</b></th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Clear and Audible voice</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q1" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q1" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q1" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q1" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q1" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Knowledge on Subject</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q2" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q2" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q2" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q2" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q2" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Student Interaction & Doubts Clarification</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q3" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q3" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q3" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q3" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q3" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Discipline and Control over class</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q4" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q4" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q4" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q4" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q4" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Passion & Enthusiasm to teach</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q5" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q5" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q5" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q5" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q5" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Punctual to class</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q6" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q6" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q6" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q6" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q6" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Covering Syllabus in time</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q7" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q7" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q7" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q7" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q7" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Sharing additional resources</td>
-                            <td>  5<input type="radio" class="rating-input"
-        id="rating5" name="q8" value="5">  4<input type="radio" class="rating-input"
-        id="rating4" name="q8" value="4">  3<input type="radio" class="rating-input"
-        id="rating3" name="q8" value="3">  2<input type="radio" class="rating-input"
-        id="rating2" name="q8" value="2">  1<input type="radio" class="rating-input"
-        id="rating1" name="q8" value="1"></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Any Suggestion :</td>
-                            <td><textarea name="suggestion" rows="5" cols="50"></textarea></td>
-                        </tr>
-                    </table></center><br><br>
-                    <center><input type="submit" id="submit" class="btn btn-outline-success"></center>
-                </form></center>
-                </div>
+    <div id="content">
+      <div class="jumbotron" id="jumbo">
+          <center><h1>Feedback Form</h1></center>
+          <center><table border=1 width=500>
+            <tr>
+              <th>Name</th>
+              <td id='data'>{{student.user.first_name}} {{student.user.last_name}}</td>
+            </tr>
+            <tr>
+              <th>Year</th>
+              <td id='data'>{{student.year}}</td>
+            </tr>
+            <tr>
+              <th>Semester</th>
+              <td id='data'>{{student.semester}}</td>
+            </tr>
+            <tr>
+              <th>Section</th>
+              <td id='data'>{{student.section}}</td>
+            </tr>
+            <tr>
+              <th>Subject</th>
+              <td id='data'>{{subject.name}}</td>
+            </tr>
+            <tr>
+              <th>Faculty</th>
+              <td id='data'>{{faculty.faculty.user.first_name}} {{faculty.faculty.user.last_name}}</td>
+            </tr>
+          </table></center><br><br>
+
+            <form id="feedback" method="POST" action="{% url 'project_app:student_portal' %}">
+            <center><table  border="1" width="800">
+              <tr>
+                <th>Feedback Aspect</th>
+                <th>Rating</th>
+              </tr>
+              {{form.as_table}}
+              {% csrf_token %}
+            </table></center>
+              <br><br>
+              <center><input type="submit" id="submit" class="btn btn-outline-success"></center>
+          </form>
+
+          </div>
+        </div>
 {% endblock %}

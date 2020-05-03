@@ -15,7 +15,6 @@ class UserCreationForm(forms.ModelForm):
             'username': None,
             'email': None,
         }
-
         def save(self,commit=True):
             user = super().save(commit=false)
             user.email = self.cleaned_data['email']
@@ -39,14 +38,15 @@ class FacultyProfileForm(forms.ModelForm):
 
 class FeedbackForm(forms.ModelForm):
     ratings = ((5,'Very Good'),(4,'Good'),(3,'Average'),(2,'Below Average'),(1,'Poor'))
-    res1 = forms.CharField(label='Clear and Audible voice',widget=forms.RadioSelect(choices=ratings))
-    res2 = forms.CharField(label='Knowledge on Subject',widget=forms.RadioSelect(choices=ratings))
-    res3 = forms.CharField(label='Student Interaction & Doubts Clarification',widget=forms.RadioSelect(choices=ratings))
-    res4 = forms.CharField(label='Discipline and Control over class',widget=forms.RadioSelect(choices=ratings))
-    res5 = forms.CharField(label='Passion & Enthusiasm to teach',widget=forms.RadioSelect(choices=ratings))
-    res6 = forms.CharField(label='Punctual to class',widget=forms.RadioSelect(choices=ratings))
-    res7 = forms.CharField(label='Covering Syllabus in time',widget=forms.RadioSelect(choices=ratings))
-    res8 = forms.CharField(label='Sharing additional resources',widget=forms.RadioSelect(choices=ratings))
+    res1 = forms.CharField(label='Clear and Audible voice ',widget=forms.RadioSelect(choices=ratings))
+    res2 = forms.CharField(label='Knowledge on Subject ',widget=forms.RadioSelect(choices=ratings))
+    res3 = forms.CharField(label='Student Interaction & Doubts Clarification ',widget=forms.RadioSelect(choices=ratings))
+    res4 = forms.CharField(label='Discipline and Control over class ',widget=forms.RadioSelect(choices=ratings))
+    res5 = forms.CharField(label='Passion & Enthusiasm to teach ',widget=forms.RadioSelect(choices=ratings))
+    res6 = forms.CharField(label='Punctual to class ',widget=forms.RadioSelect(choices=ratings))
+    res7 = forms.CharField(label='Covering Syllabus in time ',widget=forms.RadioSelect(choices=ratings))
+    res8 = forms.CharField(label='Sharing additional resources ',widget=forms.RadioSelect(choices=ratings))
+    sug = forms.CharField(label='Any Suggestion :')
     class Meta:
         model = Feedback
         fields = ('res1','res2','res3','res4','res5','res6','res7','res8','sug')

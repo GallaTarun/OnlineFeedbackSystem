@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from . import models
-# Create your views here.
+
 
  ###########################################################################
 
@@ -19,10 +19,10 @@ class FacultyProfileList(ListView):
 ############################################################################
 
 class FacultyDetails(DetailView):
-    context_object_name = 'faculty_details'
+    context_object_name = 'facultydetails'
 
     model = models.FacultyProfile
-    template_name = 'faculty_details.html'
+    template_name = 'Feedback_System/faculty_details.html'
 
 #############################################################################
 
@@ -145,9 +145,23 @@ def student_register(request):
             profile.user = user
             profile.save()
             login(request,user)
+
+            year = request.POST.get('year')
+            branch = request.POST.get('branch')
+            semester = request.POST.get('semester')
+            section = request.POST.get('section')
+            print(year,branch,semester,section)
+
+            subjects = list(models.Subject.objects.filter(branch=branch,year=year,semester=semester))
+            print(subjects)
+
+            for subject in subjects:
+                faculty = models.Teaches.objects.filter(subject=subject,section=section)
+                print(faculty)
+                # fd = models.Feedback(student=request.user,subject=subject,teacher=faculty)
+                # fd.save(commit=False)
+
             return redirect('/student_portal')
-        else:
-            return HttpResponse("Oops ! Some Error Occured !")
     else:
         form = UserCreationForm()
         profile_form = StudentProfileForm()
@@ -181,21 +195,12 @@ def student_login(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        user = User.objects.filter(username=username)
-        print(username, password)
-        user = authenticate(username=username,password=password)
-        print(user)
+        user = get_object_or_404(User,username=username,password=password)
+        user.backend = None
         if user:
-            student = models.StudentProfile.objects.filter(user)
-            if student.count()!=0:
-                login(request,user, backend=settings.AUTHENTICATION_BACKENDS[0])
-                return HttpResponseRedirect('student_portal')
-            else:
-                return HttpResponseRedirect('Invalid Login !')
+            login(request,user)
         else:
             return HttpResponse('Login failed !')
-        # else:
-        #     return HttpResponse(' Please Try Again !')
     return render(request,'Feedback_System/login.html',{})
 
 # #############################################################################
@@ -223,16 +228,37 @@ def faculty_login(request):
 
 @login_required
 def feedback(request,pk):
-    user = request.user
-    student = models.StudentProfile.objects.filter(user=user)[0]
-    subject = models.Subject.objects.filter(id=pk)[0]
-    faculty = models.Teaches.objects.filter(subject=subject, year=student.year,semester= student.semester)[0]
-    if request.method == 'POST':
-        pass
+    if request.user.is_authenticated:
+        user = request.user
+        student = models.StudentProfile.objects.filter(user=user)[0]
+        subject = models.Subject.objects.filter(id=pk)[0]
+        faculty = models.Teaches.objects.filter(subject=subject, year=student.year,semester= student.semester)[0]
+        print(student,subject,faculty.faculty)
+        # feedback_obj = models.Feedback.objects.filter(subject=subject,teacher=faculty.faculty,student=student)[0]
+        # print(feedback_obj)
+        form = FeedbackForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                feedback = form.save(commit=False)
+            else:
+                form = FeedbackForm()
+
+        #     r1= request.POST.get('q1')
+        #     r2 = request.POST.get('q2')
+        #     r3 = request.POST.get('q3')
+        #     r4 = request.POST.get('q4')
+        #     r5 = request.POST.get('q5')
+        #     r6 = request.POST.get('q6')
+        #     r7 = request.POST.get('q7')
+        #     r8 = request.POST.get('q8')
+        #     sug = request.POST.get('suggestion')
+        #
+
     details = {
         'student' : student,
         'subject' : subject,
         'faculty' : faculty,
+        'form' : form,
     }
     return render(request,'Feedback_System/feedback_form.html', context=details)
 

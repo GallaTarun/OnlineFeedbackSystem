@@ -17,8 +17,12 @@
       </tr>
     </table>
     <br>
-    <h2>View Ratings of Faculties :</h2><br>
+      <hr class="my-4">
+    <br>
       <table border="1" width="500">
+        <tr>
+          <td colspan="5">Faculty Ratings</td>
+        </tr>
         <tr>
           <th>Year</th>
           <th>Subject</th>
@@ -35,8 +39,10 @@
             <td><a href="{% url 'project_app:feedback_result' fac.id %}">Click Here</a></td>
           </tr>
         {% endfor %}
-      </table><br><br>
-      <h4>Click here to <a href="{% url 'project_app:assign_faculty' %}">Assign Faculty to Subjects</a></h4>
+      </table>
+      <br><hr class="my-4"><br>
+      <h4>Click here to <a href="{% url 'project_app:assign_faculty' %}">Assign Faculty to Subjects</a>
+
   </div>
 </div>
 {% endblock %}
